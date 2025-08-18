@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import { AppError } from '../utils/errorHandler.js'; 
+import bcrypt from 'bcrypt';
 
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Basic email regex
@@ -36,6 +37,43 @@ export const addUser = async (req, res, next) => {
         next(error); // Pass error to the global error handler
     }
 };
+
+//user login
+export const userLogin = async (req, res, next) => {
+    try{
+        const { email,password} = req.body
+        
+        if (!email || !password) {
+            throw new AppError('Email password are required', 422, 'ValidationError');
+        }
+
+        const user = await User.findOne({email})
+
+        if (!user){
+            throw new AppError('Email password are invalid', 401, 'AuthenticationError');
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password)
+
+        if (!passwordMatch) {
+            throw new AppError('Email or Password invalid', 401, 'AuthenticationError');
+        }
+
+       
+        res.status(200).json({
+            success: true,
+            message: 'Login successful',
+        });
+
+        next()
+        
+        
+
+    } catch(error){
+        next(error)
+    }
+}
+
 
 
 

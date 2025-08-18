@@ -1,9 +1,10 @@
 import express from 'express';
-import {addUser} from '../controllers/userController.js';
+import {addUser,userLogin} from '../controllers/userController.js';
 import validateUser from '../validators/userValidator.js';
 const authrouter  = express.Router();
 
 authrouter.post('/signup',validateUser,addUser);
+authrouter.post('/signin',userLogin);
 
 
 export default authrouter;
@@ -128,3 +129,146 @@ export default authrouter;
  *                   type: string
  *                   example: "Internal server error."
  */
+
+
+// user login
+
+/**
+ * @swagger
+ * /api/auths/signin:
+ *   post:
+ *     summary: User Login
+ *     description: Log in to the system by providing a registered email and password.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Registered email address.
+ *                 example: user@example.com
+ *               password:
+ *                 type: string
+ *                 description: Admin's password.
+ *                 example: P@ssword123
+ *
+ *     responses:
+ *       200:
+ *         description: Login successfully.
+ *         headers:
+ *           Set-Cookie:
+ *             description: >
+ *               Sets the refreshToken as an HTTP-only, secure cookie.
+ *               This cookie is used for maintaining a session.
+ *             schema:
+ *               type: string
+ *               example: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...; HttpOnly; Secure
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Login Successful."
+ *                 accessToken:
+ *                   type: string
+ *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *                 refreshToken:
+ *                   type: string
+ *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *       422:
+ *         description: Validation error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 422
+ *                 errorType:
+ *                   type: string
+ *                   example: ValidationError
+ *                 message:
+ *                   type: string
+ *                   example: "Validation failed."
+ *                 details:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *                   example:
+ *                     - "Email and password and ID are required."
+ *       401:
+ *         description: Authentication error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 401
+ *                 errorType:
+ *                   type: string
+ *                   example: AuthenticationError
+ *                 message:
+ *                   type: string
+ *                   example: "invalid email or password."
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 500
+ *                 errorType:
+ *                   type: string
+ *                   example: ServerError
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error."
+ *       400:
+ *         description: Cast error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 400
+ *                 errorType:
+ *                   type: string
+ *                   example: CastError
+ *                 message:
+ *                   type: string
+ *                   example: "Database error."
+ */
+
