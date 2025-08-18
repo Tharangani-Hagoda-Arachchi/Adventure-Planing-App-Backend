@@ -44,19 +44,20 @@ export const userLogin = async (req, res, next) => {
         const { email,password} = req.body
         
         if (!email || !password) {
+            
             throw new AppError('Email password are required', 422, 'ValidationError');
         }
 
         const user = await User.findOne({email})
 
         if (!user){
-            throw new AppError('Email password are invalid', 401, 'AuthenticationError');
+            throw new AppError('Inavalid Email or Password', 401, 'AuthenticationError');
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password)
 
         if (!passwordMatch) {
-            throw new AppError('Email or Password invalid', 401, 'AuthenticationError');
+            throw new AppError('Inavalid Email or Password', 401, 'AuthenticationError');
         }
 
        
