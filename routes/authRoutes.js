@@ -16,7 +16,7 @@ export default authrouter;
  * /api/auths/signup:
  *   post:
  *     summary: User Registration
- *     description: Create a new user account with validation rules for name, email, phone, and password
+ *     description: Create a new user account with validation rules for name, email, phone, and password.
  *     tags:
  *       - Authentication
  *     requestBody:
@@ -33,7 +33,7 @@ export default authrouter;
  *             properties:
  *               name:
  *                 type: string
- *                 description: User's name (3-50 characters).
+ *                 description: User's name (3–50 characters).
  *                 example: Nimal Perera
  *               email:
  *                 type: string
@@ -46,12 +46,12 @@ export default authrouter;
  *               password:
  *                 type: string
  *                 description: >
- *                   A password that includes:
- *                   - At least 6 characters
- *                   - At least one uppercase letter
- *                   - At least one lowercase letter
- *                   - At least one number
- *                   - At least one special character
+ *                   A password that must include:
+ *                   - At least 6 characters  
+ *                   - At least one uppercase letter  
+ *                   - At least one lowercase letter  
+ *                   - At least one number  
+ *                   - At least one special character  
  *                 example: P@ssword123
  *     responses:
  *       201:
@@ -131,7 +131,8 @@ export default authrouter;
  */
 
 
-// user login
+
+
 
 /**
  * @swagger
@@ -157,9 +158,8 @@ export default authrouter;
  *                 example: user@example.com
  *               password:
  *                 type: string
- *                 description: Admin's password.
+ *                 description: User's password.
  *                 example: P@ssword123
- *
  *     responses:
  *       200:
  *         description: Login successfully.
@@ -188,6 +188,44 @@ export default authrouter;
  *                 refreshToken:
  *                   type: string
  *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *       400:
+ *         description: Cast error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 400
+ *                 errorType:
+ *                   type: string
+ *                   example: CastError
+ *                 message:
+ *                   type: string
+ *                   example: "Database error."
+ *       401:
+ *         description: Authentication error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 401
+ *                 errorType:
+ *                   type: string
+ *                   example: AuthenticationError
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid email or password."
  *       422:
  *         description: Validation error.
  *         content:
@@ -212,26 +250,7 @@ export default authrouter;
  *                   items:
  *                     type: string
  *                   example:
- *                     - "Email and password and ID are required."
- *       401:
- *         description: Authentication error.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
- *                 statusCode:
- *                   type: integer
- *                   example: 401
- *                 errorType:
- *                   type: string
- *                   example: AuthenticationError
- *                 message:
- *                   type: string
- *                   example: "invalid email or password."
+ *                     - "Email and password are required."
  *       500:
  *         description: Internal server error.
  *         content:
@@ -251,24 +270,4 @@ export default authrouter;
  *                 message:
  *                   type: string
  *                   example: "Internal server error."
- *       400:
- *         description: Cast error.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
- *                 statusCode:
- *                   type: integer
- *                   example: 400
- *                 errorType:
- *                   type: string
- *                   example: CastError
- *                 message:
- *                   type: string
- *                   example: "Database error."
  */
-

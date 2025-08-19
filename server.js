@@ -2,6 +2,7 @@ import DBConnect from "./db_config.js"
 import {errorMiddleware} from './utils//errorHandler.js'
 import { swaggerUi,swaggerDocs } from "./swagger.js";
 import authrouter from "./routes/authRoutes.js";
+import guiderouter from "./routes/guideRoutes.js";
 
 import express from 'express'
 import cors from 'cors'
@@ -12,6 +13,7 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 const port = process.env.PORT || 4000;
+app.use('/uploads', express.static('uploads'));
 
 app.use(cors());
 app.use(express.json());
@@ -29,6 +31,8 @@ app.get('/api/swagger.json', (req, res) => {
 
 
 app.use('/api/auths',authrouter)
+app.use('/api',guiderouter)
+
 
 
 
