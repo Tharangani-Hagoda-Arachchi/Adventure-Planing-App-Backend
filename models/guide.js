@@ -5,7 +5,7 @@ import Joi from 'joi';
 
 // Define the User Schema
 const guideSchema = new mongoose.Schema({
-    
+
     guideRegno: {
         type: String,
         required: true,
@@ -22,6 +22,11 @@ const guideSchema = new mongoose.Schema({
         
     },
     guideAdventureCategory: {
+        type: String,
+        required: true,
+        
+    },
+    guideAdventurePlace: {
         type: String,
         required: true,
         

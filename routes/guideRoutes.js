@@ -36,6 +36,7 @@ export default guiderouter;
  *               - guideName
  *               - guideFee
  *               - guideAdventureCategory
+ *               - guideAdventurePlace
  *               - guideCategory
  *               - language
  *               - image
@@ -52,6 +53,9 @@ export default guiderouter;
  *               guideAdventureCategory:
  *                 type: string
  *                 example: Surfing
+ *               guideAdventurePlace:
+ *                 type: string
+ *                 example: Arugambay Surfing Beach
  *               guideCategory:
  *                 type: string
  *                 example: National

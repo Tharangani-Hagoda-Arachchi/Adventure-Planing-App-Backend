@@ -3,7 +3,7 @@ import { AppError } from '../utils/errorHandler.js';
 
 export const addGuide = async (req, res, next) => {
     try{
-        const {guideRegno, guideName, guideFee, guideAdventureCategory, guideCategory, language} = req.body
+        const {guideRegno, guideName, guideFee, guideAdventureCategory, guideAdventurePlace, guideCategory, language} = req.body
         const {guideImageUrl} = req.file ? `http://localhost:4000/uploads/${req.file.filename}`: null
         
         // check guide is already exists
@@ -18,6 +18,7 @@ export const addGuide = async (req, res, next) => {
             guideName,
             guideFee,
             guideAdventureCategory,
+            guideAdventurePlace,
             guideCategory,
             language,
             guideImageUrl 
