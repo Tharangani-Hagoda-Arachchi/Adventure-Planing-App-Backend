@@ -42,8 +42,8 @@ app.use(errorMiddleware);
 
 app.listen(port,'0.0.0.0',() => {
     console.log(`Sever run on port ${port}`);
-    console.log(`Server running on http://13.60.76.232:/api`);
-  console.log(`Swagger docs available at http://13.60.76.232:/api-docs`);
+    console.log(`Server running on http://13.60.76.232/api`);
+  console.log(`Swagger docs available at http://13.60.76.232/api-docs`);
 
 })
 
