@@ -1,12 +1,14 @@
 import express from 'express';
 import multer from 'multer';
-import {addGuide} from '../controllers/guideController.js';
+import {addGuide,getGuide} from '../controllers/guideController.js';
 import validateGuide from '../validators/guideValidator.js';
-import upload from '../upload.js';
+const upload = multer({ storage: multer.memoryStorage() });
+//import upload from '../upload.js';
 const guiderouter  = express.Router();
 
 
-guiderouter.post('/guides',upload.single('image'),validateGuide,addGuide);
+guiderouter.post('/guides',upload.single('guideImage'),validateGuide,addGuide);
+guiderouter.get('/guides',getGuide)
 
 
 
@@ -39,11 +41,12 @@ export default guiderouter;
  *               - guideAdventurePlace
  *               - guideCategory
  *               - language
- *               - image
+ *               - ratings
+ *               - guideImage
  *             properties:
  *               guideRegno:
  *                 type: string
- *                 example:  g6785
+ *                 example: g6785
  *               guideName:
  *                 type: string
  *                 example: Nimal Perera
@@ -62,7 +65,10 @@ export default guiderouter;
  *               language:
  *                 type: string
  *                 example: English
- *               image:
+ *               ratings:
+ *                 type: number
+ *                 example: 2
+ *               guideImage:
  *                 type: string
  *                 format: binary
  *                 description: Upload image file
@@ -142,3 +148,77 @@ export default guiderouter;
  *                   type: string
  *                   example: "Internal server error."
  */
+
+
+
+
+//get all guides
+/**
+ * @swagger
+ * /api/guides:
+ *   get:
+ *     summary: Retrieve all operators
+ *     description: Fetches a list of all operator users from the system.
+ *     tags:
+ *       - Guide
+ *     responses:
+ *       200:
+ *         description: Operators retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Operators retrieved successfully."
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Server Error
+ *       401:
+ *         description: Authentication error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 401
+ *                 errorType:
+ *                   type: string
+ *                   example: AuthenticationError
+ *                 message:
+ *                   type: string
+ *                   example: "token invalid."
+ *       403:
+ *         description: Authorization error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 403
+ *                 errorType:
+ *                   type: string
+ *                   example: AuthorizationError
+ *                 message:
+ *                   type: string
+ *                   example: "Access Denied."
+ */
+

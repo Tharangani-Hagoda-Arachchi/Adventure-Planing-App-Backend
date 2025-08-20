@@ -24,6 +24,10 @@ const guideValidationSchema = Joi.object({
     language: Joi.string().required().messages({
         'string.empty': 'anguage is required'
     }),
+    ratings: Joi.string().required().messages({
+        'string.empty': 'rating is required'
+    }),
+
 
     
 });

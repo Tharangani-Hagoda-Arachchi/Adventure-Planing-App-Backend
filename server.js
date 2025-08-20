@@ -12,7 +12,7 @@ import cookieParser from "cookie-parser";
 
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 app.use('/uploads', express.static('uploads'));
 
 app.use(cors());
@@ -40,10 +40,10 @@ DBConnect();
 
 app.use(errorMiddleware);
 
-app.listen(port,() => {
+app.listen(port,'0.0.0.0',() => {
     console.log(`Sever run on port ${port}`);
-    console.log(`Server running on http://localhost:4000/api`);
-  console.log(`Swagger docs available at http://localhost:4000/api-docs`);
+    console.log(`Server running on http://192.168.190.31:3000/api`);
+  console.log(`Swagger docs available at http://192.168.190.31:3000/api-docs`);
 
 })
 
