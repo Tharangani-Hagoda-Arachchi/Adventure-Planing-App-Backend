@@ -42,6 +42,10 @@ export default guiderouter;
  *               - guideCategory
  *               - language
  *               - ratings
+ *               - guidePhoneNo
+ *               - guideEmail
+ *               - guideAddress
+ *               - guideValidity
  *               - guideImage
  *             properties:
  *               guideRegno:
@@ -68,6 +72,18 @@ export default guiderouter;
  *               ratings:
  *                 type: number
  *                 example: 2
+ *               guidePhoneNo:
+ *                 type: string
+ *                 example: 0784536279
+ *               guideEmail:
+ *                 type: string
+ *                 example: Nimal@gmail.com
+ *               guideAddress:
+ *                 type: string
+ *                 example: 133/A Galle road, Colombo
+ *               guideValidity:
+ *                 type: string
+ *                 example: 31st December 2025
  *               guideImage:
  *                 type: string
  *                 format: binary

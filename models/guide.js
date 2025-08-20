@@ -44,6 +44,22 @@ const guideSchema = new mongoose.Schema({
         type: Number
     
     },
+    guidePhoneNo: {
+        type: String,
+        required: true,       
+    },
+    guideEmail: {
+        type: String,
+        required: true,       
+    },
+    guideAddress: {
+        type: String,
+        required: true,       
+    },
+    guideValidity: {
+        type: String,
+        required: true,       
+    },
     guideImage: {
         data: Buffer,
         contentType: String

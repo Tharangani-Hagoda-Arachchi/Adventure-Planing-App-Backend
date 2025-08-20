@@ -27,6 +27,19 @@ const guideValidationSchema = Joi.object({
     ratings: Joi.string().required().messages({
         'string.empty': 'rating is required'
     }),
+    guidePhoneNo: Joi.string().required().messages({
+        'string.empty': 'phone no is required'
+    }),
+    guideEmail: Joi.string().email().required().messages({
+        'string.empty': 'email is required'
+    }),
+    guideAddress: Joi.string().required().messages({
+        'string.empty': 'email is required'
+    }),
+    guideValidity: Joi.string().required().messages({
+        'string.empty': 'email is required'
+    }),
+
 
 
     
