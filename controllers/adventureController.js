@@ -6,12 +6,11 @@ import bcrypt from 'bcrypt';
 
 export const addAdventure = async (req, res, next) => {
     try{
-        const adventureType  = req.body
+        const {adventureType}  = req.body
 
   
         const newAdventure = new Adventure({
             adventureType
-
         });
 
         await newAdventure.save();
