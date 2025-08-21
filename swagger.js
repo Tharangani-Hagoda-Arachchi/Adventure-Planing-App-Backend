@@ -5,7 +5,7 @@ const swaggerOptions = {
     definition: {
       openapi: '3.0.0', // Specify the version of OpenAPI
       info: {
-        title: 'NTC Inter-Provincial Bus Seat Reservation System',
+        title:  'Travel Planner System',
         version: '1.0.0',
         description: 'API documentation with Swagger which used real-time inter-provincial bus seats reservation in NTC',
       },
