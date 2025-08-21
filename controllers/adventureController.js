@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 
 export const addAdventure = async (req, res, next) => {
     try{
-        const {adventureType}  = req.body
+        const adventureType  = req.body
 
   
         const newAdventure = new Adventure({
@@ -38,14 +38,15 @@ export const getAdventure = async (req, res, next) => {
             return res.status(404).json({ message: `No adventure found'.` });
         }
 
-        res.status(200).json({
-            message: `Adventure retrieved successfully.`,
-            admins: adventure.map(adventure => ({
-                _id: adventure._id,
-                adventureType: adventure.adventureType,
+        const adventureInBase64 = adventure.map(a =>( {
+            _id: a._id,
+            adventureType: a.adventureType,
 
-            }))
-        });
+
+        }));
+
+        res.status(200).json(adventureInBase64);
+     
         next()
 
     } catch (error) {
