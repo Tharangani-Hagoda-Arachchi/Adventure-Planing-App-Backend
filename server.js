@@ -4,6 +4,7 @@ import { swaggerUi,swaggerDocs } from "./swagger.js";
 import authrouter from "./routes/authRoutes.js";
 import guiderouter from "./routes/guideRoutes.js";
 import adventurerouter from "./routes/adventureRoutes.js";
+import siterouter from "./routes/adventureSiteRoutes.js";
 
 
 import express from 'express'
@@ -36,6 +37,7 @@ app.get('/api/swagger.json', (req, res) => {
 app.use('/api/auths',authrouter)
 app.use('/api',guiderouter)
 app.use('/api',adventurerouter)
+app.use('/api',siterouter)
 
 
 
