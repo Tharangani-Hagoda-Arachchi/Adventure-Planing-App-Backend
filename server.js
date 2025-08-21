@@ -3,11 +3,14 @@ import {errorMiddleware} from './utils//errorHandler.js'
 import { swaggerUi,swaggerDocs } from "./swagger.js";
 import authrouter from "./routes/authRoutes.js";
 import guiderouter from "./routes/guideRoutes.js";
+import adventurerouter from "./routes/adventureRoutes.js";
+
 
 import express from 'express'
 import cors from 'cors'
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+
 
 
 
@@ -32,6 +35,8 @@ app.get('/api/swagger.json', (req, res) => {
 
 app.use('/api/auths',authrouter)
 app.use('/api',guiderouter)
+app.use('/api',adventurerouter)
+
 
 
 

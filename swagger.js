@@ -11,7 +11,7 @@ const swaggerOptions = {
       },
       servers: [
         {
-          url: 'http://13.60.76.232', // API server URL
+          url: `http://13.60.76.232/api/`, // API server URL
         },
       ],
       components: {
