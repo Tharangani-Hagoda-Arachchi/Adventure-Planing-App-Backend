@@ -12,7 +12,7 @@ siterouter.get('/places/:categoryId',getCategoryById)
 
 
 
-export default guiderouter;
+export default siterouter;
 
 
 // add site
@@ -54,7 +54,7 @@ export default guiderouter;
  *                 example: 2
  *               categoryId:
  *                 type: string
- *                 example:68a6ffc48941afe5f869f8b0
+ *                 example: 68a6ffc48941afe5f869f8b0
  *               siteImage:
  *                 type: string
  *                 format: binary
