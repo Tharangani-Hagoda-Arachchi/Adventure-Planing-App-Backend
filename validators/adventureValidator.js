@@ -3,7 +3,7 @@ import {AppError} from '../utils/errorHandler.js'
 
 //guide validation scema
 const AdventureValidationSchema = Joi.object({
-    adventureTyoe: Joi.string().required().messages({
+    adventureType: Joi.string().required().messages({
         'string.empty': 'Type is required'
     }),
 });
