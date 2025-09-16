@@ -9,7 +9,7 @@ const siterouter  = express.Router();
 
 siterouter.post('/places',upload.single('siteImage'),validateSite,addSite);
 siterouter.get('/places/:categoryId',getCategoryById)
-siterouter.get('/places/:Id',getPlaceById)
+siterouter.get('/places/details/:Id',getPlaceById)
 
 
 
@@ -204,7 +204,7 @@ export default siterouter;
 
 /**
  * @swagger
- * /api/places/{Id}:
+ * /api/places/details/{Id}:
  *   get:
  *     summary: get site details by id
  *     description: get site details by id.
