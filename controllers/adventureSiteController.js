@@ -18,6 +18,8 @@ export const addSite = async (req, res, next) => {
         const newSite = new Site({
             name,
             openTime,
+            latitude,
+            longitude,
             description,
             ratings,
             categoryId,
