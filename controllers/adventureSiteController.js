@@ -101,26 +101,26 @@ export const getPlaceById = async (req, res, next) => {
             return res.status(400).json({ message: 'adventure place ID is required' })
         }
 
-        const sites = await Site.findById({_id: Id })
+        const site = await Site.findById({_id: Id })
 
-        if (!sites) {
+        if (!site) {
             return res.status(404).json({ message: 'no adventure site for this ID' })
         }
 
-        const siteInBase64 = {
-            _id: sites._id,
-            name: sites.name,
-            latitude: sites.latitude,
-            longitude: sites.longitude,
-            openTime: sites.openTime,
-            description: sites.description,
-            ratings: sites.ratings,
-            siteImage: sites.siteImage && s.siteImage.data ? `data:${s.siteImage.contentType};base64,${s.siteImage.data.toString('base64')}` : null
+        const onesiteInBase64 = {
+            _id: site._id,
+            name: site.name,
+            latitude: site.latitude,
+            longitude: site.longitude,
+            openTime: site.openTime,
+            description: site.description,
+            ratings: site.ratings,
+            siteImage: site.siteImage && s.siteImage.data ? `data:${s.siteImage.contentType};base64,${s.siteImage.data.toString('base64')}` : null
 
         };
 
 
-        res.status(200).json(siteInBase64);
+        res.status(200).json(onesiteInBase64);
 
         next()
 
