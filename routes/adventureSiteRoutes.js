@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import {addSite,getCategoryById} from '../controllers/adventureSiteController.js';
+import {addSite,getCategoryById, getPlaceById} from '../controllers/adventureSiteController.js';
 import validateSite from '../validators/adventureSiteValidator.js';
 const upload = multer({ storage: multer.memoryStorage() });
 //import upload from '../upload.js';
@@ -9,6 +9,7 @@ const siterouter  = express.Router();
 
 siterouter.post('/places',upload.single('siteImage'),validateSite,addSite);
 siterouter.get('/places/:categoryId',getCategoryById)
+siterouter.get('/places/:Id',getPlaceById)
 
 
 
@@ -164,6 +165,58 @@ export default siterouter;
  *         schema:
  *           type: string
  *         description: cat Iof place which want to get infoD 
+ * 
+ *     responses:
+ *       200:
+ *         description: site details retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "site details retrieved successfully."
+ *
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 500
+ *                 errorType:
+ *                   type: string
+ *                   example: ServerError
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error."
+ */
+
+
+//get all site by id
+
+/**
+ * @swagger
+ * /api/places/{Id}:
+ *   get:
+ *     summary: get site details by id
+ *     description: get site details by id.
+ *     tags:
+ *       - Adventure Places
+ *     parameters:
+ *       - in: path
+ *         name: Id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of place which want to get infoD 
  * 
  *     responses:
  *       200:

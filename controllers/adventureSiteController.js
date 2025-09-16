@@ -88,3 +88,46 @@ export const getCategoryById = async (req, res, next) => {
         next(error); // Pass error to the global error handler
     }
 };
+
+// get all sites by  id
+export const getPlaceById = async (req, res, next) => {
+    try {
+
+        const { Id } = req.params
+
+        // check required fields
+
+        if (!Id) {
+            return res.status(400).json({ message: 'adventure place ID is required' })
+        }
+
+        const sites = await Site.find({ _id: Id })
+
+        if (!sites) {
+            return res.status(404).json({ message: 'no adventure site for this ID' })
+        }
+
+        const siteInBase64 = sites.map(s => ({
+            _id: s._id,
+            name: s.name,
+            latitude: s.latitude,
+            longitude: s.longitude,
+            openTime: s.openTime,
+            description: s.description,
+            ratings: s.ratings,
+            siteImage: s.siteImage && s.siteImage.data ? `data:${s.siteImage.contentType};base64,${s.siteImage.data.toString('base64')}` : null
+
+        }));
+
+
+        res.status(200).json(siteInBase64);
+
+        next()
+
+
+    } catch (error) {
+        next(error); // Pass error to the global error handler
+    }
+};
+
+
