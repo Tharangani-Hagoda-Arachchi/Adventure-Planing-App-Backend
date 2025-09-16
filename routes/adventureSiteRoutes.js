@@ -7,7 +7,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const siterouter  = express.Router();
 
 
-siterouter.post('/places',upload.single('siteeImage'),validateSite,addSite);
+siterouter.post('/places',upload.single('siteImage'),validateSite,addSite);
 siterouter.get('/places/:categoryId',getCategoryById)
 
 
