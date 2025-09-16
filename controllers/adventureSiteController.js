@@ -115,7 +115,7 @@ export const getPlaceById = async (req, res, next) => {
             openTime: site.openTime,
             description: site.description,
             ratings: site.ratings,
-            siteImage: site.siteImage && s.siteImage.data ? `data:${s.siteImage.contentType};base64,${s.siteImage.data.toString('base64')}` : null
+            siteImage: site.siteImage && site.siteImage.data ? `data:${site.siteImage.contentType};base64,${site.siteImage.data.toString('base64')}` : null
 
         };
 
