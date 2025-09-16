@@ -29,6 +29,8 @@ jobs:
     - run: |
         touch .env
         echo "${{ secrets.MONGO_URI }}" > .env
+        echo "PORT=3000" >> .env
+
         
     - run: |
         rsync -avz --delete ./ /home/ubuntu/app/
@@ -38,5 +40,5 @@ jobs:
       
     - run: |
         cd /home/ubuntu/app
-        pm2 restart api || pm2 start server.js --name api
+        pm2 restart server || pm2 start server.js --name api
 
