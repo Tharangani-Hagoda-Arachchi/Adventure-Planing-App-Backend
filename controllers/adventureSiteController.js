@@ -1,3 +1,4 @@
+import { lazy } from "react";
 import Adventure from "../models/adventure.js";
 import Site from "../models/adventureSite.js";
 import { AppError } from '../utils/errorHandler.js';
@@ -69,6 +70,8 @@ export const getCategoryById = async (req, res, next) => {
         const siteInBase64 = sites.map(s => ({
             _id: s._id,
             name: s.name,
+            latitude: s.latitude,
+            longitude: s.longitude,
             openTime: s.openTime,
             description: s.description,
             ratings: s.ratings,
