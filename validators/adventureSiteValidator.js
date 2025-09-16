@@ -24,12 +24,12 @@ const siteValidationSchema = Joi.object({
     categoryId: Joi.string().required().messages({
         'string.empty': ' Category ID is required'
     }),
-    guideAdventurePlace: Joi.string().required().messages({
-        'string.empty': 'Adventure place is required'
-    }),
-    guideCategory: Joi.string().required().messages({
-        'string.empty': 'Category is required'
-    }),
+    // //guideAdventurePlace: Joi.string().required().messages({
+    //     'string.empty': 'Adventure place is required'
+    // }),
+    // guideCategory: Joi.string().required().messages({
+    //     'string.empty': 'Category is required'
+    // }),
 
 });
 
