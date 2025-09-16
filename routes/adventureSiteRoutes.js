@@ -167,7 +167,7 @@ export default siterouter;
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "seats retrieved successfully."
+ *                   example: "site details retrieved successfully."
  *
  *       500:
  *         description: Internal server error.
