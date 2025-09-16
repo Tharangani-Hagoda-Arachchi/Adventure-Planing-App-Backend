@@ -4,7 +4,7 @@ import { AppError } from '../utils/errorHandler.js';
 
 export const addSite = async (req, res, next) => {
     try {
-        const { name, openTime, description, ratings, categoryId } = req.body
+        const { name,latitude,longitude, openTime, description, ratings, categoryId } = req.body
 
         if (!req.file) return res.status(400).send('Image is required');
 
