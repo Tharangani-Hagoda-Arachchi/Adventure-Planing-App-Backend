@@ -101,7 +101,7 @@ export const getPlaceById = async (req, res, next) => {
             return res.status(400).json({ message: 'adventure place ID is required' })
         }
 
-        const sites = await Site.find({ _id: Id })
+        const sites = await Site.findOne({_id: Id })
 
         if (!sites) {
             return res.status(404).json({ message: 'no adventure site for this ID' })
