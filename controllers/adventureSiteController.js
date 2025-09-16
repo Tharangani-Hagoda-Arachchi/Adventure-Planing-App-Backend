@@ -93,7 +93,7 @@ export const getCategoryById = async (req, res, next) => {
 export const getPlaceById = async (req, res, next) => {
     try {
 
-        const { Id } = req.params
+        const { id } = req.params
 
         // check required fields
 
@@ -101,7 +101,7 @@ export const getPlaceById = async (req, res, next) => {
             return res.status(400).json({ message: 'adventure place ID is required' })
         }
 
-        const site = await Site.findById({_id: Id })
+        const site = await Site.findById({_id: id })
 
         if (!site) {
             return res.status(404).json({ message: 'no adventure site for this ID' })

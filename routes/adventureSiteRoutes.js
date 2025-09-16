@@ -9,7 +9,7 @@ const siterouter  = express.Router();
 
 siterouter.post('/places',upload.single('siteImage'),validateSite,addSite);
 siterouter.get('/places/:categoryId',getCategoryById)
-siterouter.get('/places/details/:Id',getPlaceById)
+siterouter.get('/places/details/:id',getPlaceById)
 
 
 
@@ -204,7 +204,7 @@ export default siterouter;
 
 /**
  * @swagger
- * /api/places/details/{Id}:
+ * /api/places/details/{id}:
  *   get:
  *     summary: get site details by id
  *     description: get site details by id.
@@ -212,7 +212,7 @@ export default siterouter;
  *       - Adventure Places
  *     parameters:
  *       - in: path
- *         name: Id
+ *         name: id
  *         required: true
  *         schema:
  *           type: string
