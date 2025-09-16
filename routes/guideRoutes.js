@@ -124,7 +124,7 @@ export default guiderouter;
  *                     type: string
  *                   example:
  *                     - "Name must be at least 3 characters."
- *                     - "Role must be one of: operator, admin, commuter."
+ *                     
  *       409:
  *         description: Conflict error.
  *         content:

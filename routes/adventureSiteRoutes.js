@@ -145,8 +145,8 @@ export default siterouter;
  * @swagger
  * /api/places/{categoryId}:
  *   get:
- *     summary: get site details bu category id
- *     description: get site details bu category id.
+ *     summary: get site details by category id
+ *     description: get site details by category id.
  *     tags:
  *       - Adventure Places
  *     parameters:
@@ -155,7 +155,7 @@ export default siterouter;
  *         required: true
  *         schema:
  *           type: string
- *         description: cat ID of trip which want to get info
+ *         description: cat Iof place which want to get infoD 
  * 
  *     responses:
  *       200:

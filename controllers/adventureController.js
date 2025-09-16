@@ -31,7 +31,7 @@ export const addAdventure = async (req, res, next) => {
 export const getAdventure = async (req, res, next) => {
     try {
 
-        // Search for all admin
+        // Search for all adventures
         const adventure = await Adventure.find();
 
         if (!adventure) {
