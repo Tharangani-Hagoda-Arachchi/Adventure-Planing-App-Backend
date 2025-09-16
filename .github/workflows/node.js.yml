@@ -34,12 +34,15 @@ jobs:
         
     - run: |
         rsync -avz --delete ./ /home/ubuntu/app/
+        
+    - run: |
         cd /home/ubuntu/app
         npm ci
         npm run build --if-present
       
     - run: |
         cd /home/ubuntu/app
-        pm2 restart api || pm2 start server.js --name api
+        pm2 delete api || true
+        pm2 start server.js --name api
         pm2 save
 
