@@ -143,7 +143,7 @@ export default siterouter;
 
 /**
  * @swagger
- * /api/trips/{categoryId}:
+ * /api/places/{categoryId}:
  *   get:
  *     summary: get site details bu category id
  *     description: get site details bu category id.

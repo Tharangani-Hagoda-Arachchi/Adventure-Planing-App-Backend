@@ -118,7 +118,7 @@ export default adventurerouter;
 
 
 
-//get all guides
+//get all adventures
 /**
  * @swagger
  * /api/adventures:
