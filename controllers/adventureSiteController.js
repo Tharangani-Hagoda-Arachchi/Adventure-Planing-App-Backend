@@ -52,7 +52,7 @@ export const getCategoryById = async (req, res, next) => {
             return res.status(400).json({ message: 'adventure category is required' })
         }
 
-        const validCategory = await Adventure.find({ categoryId: _id })
+        const validCategory = await Adventure.find({ _id : categoryId })
 
         if (!validCategory) {
             return res.status(404).json({ message: 'invalid adventure category' })
