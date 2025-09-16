@@ -124,12 +124,12 @@ export default adventurerouter;
  * /api/adventures:
  *   get:
  *     summary: Retrieve all adventures
- *     description: Fetches a list of all operator users from the system.
+ *     description: Fetches a list of all Adventures from the system.
  *     tags:
  *       - Adventure
  *     responses:
  *       200:
- *         description: Operators retrieved successfully.
+ *         description: Adventure retrieved successfully.
  *         content:
  *           application/json:
  *             schema:
@@ -137,7 +137,7 @@ export default adventurerouter;
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "Operators retrieved successfully."
+ *                   example: "Adventure retrieved successfully."
  *       500:
  *         description: Internal Server Error
  *         content:
