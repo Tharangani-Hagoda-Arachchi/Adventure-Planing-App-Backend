@@ -1,10 +1,16 @@
 import Joi from 'joi';
-import {AppError} from '../utils/errorHandler.js'
+import { AppError } from '../utils/errorHandler.js'
 
 //site validation scema
 const siteValidationSchema = Joi.object({
     name: Joi.string().required().messages({
         'string.empty': 'Name is required'
+    }),
+    latitude: Joi.number().required().messages({
+        'number.empty': 'rlatitude is required'
+    }),
+    longitude: Joi.number().required().messages({
+        'number.empty': 'longitude is required'
     }),
     openTime: Joi.string().required().messages({
         'string.empty': 'Open Time is required'
@@ -24,12 +30,12 @@ const siteValidationSchema = Joi.object({
     guideCategory: Joi.string().required().messages({
         'string.empty': 'Category is required'
     }),
-    
+
 });
 
 //middleware function to validate site
-const validateSite = async(req, res, next) => {
-   
+const validateSite = async (req, res, next) => {
+
     const { error } = siteValidationSchema.validate(req.body, { abortEarly: false });
     if (error) {
         const errorMessages = error.details.map(err => err.message);
@@ -38,9 +44,9 @@ const validateSite = async(req, res, next) => {
             400,
             'ValidationError',
             errorMessages
-        ));    
+        ));
     }
-   
+
     next();
 };
 

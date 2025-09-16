@@ -35,6 +35,8 @@ export default siterouter;
  *             type: object
  *             required:
  *               - name
+ *               - latitude
+ *               - longitude
  *               - openTime
  *               - description
  *               - ratings
@@ -43,6 +45,12 @@ export default siterouter;
  *               name:
  *                 type: string
  *                 example: Arugm Bay Surfing Site
+ *               latitude:
+ *                 type: number
+ *                 example: 37.96784
+ *               longitude:
+ *                 type: number
+ *                 example: 112.8965
  *               openTime:
  *                 type: string
  *                 example: 6:30 AM to 11:00 PM
