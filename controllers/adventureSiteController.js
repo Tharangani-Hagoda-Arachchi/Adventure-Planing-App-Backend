@@ -97,7 +97,7 @@ export const getPlaceById = async (req, res, next) => {
 
         // check required fields
 
-        if (!Id) {
+        if (!id) {
             return res.status(400).json({ message: 'adventure place ID is required' })
         }
 
