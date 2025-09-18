@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import {addGuide,getGuide} from '../controllers/guideController.js';
+import {addGuide,getGuide, getGuideByPlace} from '../controllers/guideController.js';
 import validateGuide from '../validators/guideValidator.js';
 const upload = multer({ storage: multer.memoryStorage() });
 //import upload from '../upload.js';
@@ -9,6 +9,7 @@ const guiderouter  = express.Router();
 
 guiderouter.post('/guides',upload.single('guideImage'),validateGuide,addGuide);
 guiderouter.get('/guides',getGuide)
+guiderouter.get('/guides/:placeName',getGuideByPlace)
 
 
 
@@ -236,5 +237,55 @@ export default guiderouter;
  *                 message:
  *                   type: string
  *                   example: "Access Denied."
+ */
+
+
+/**
+ * @swagger
+ * /api/guides/{placeName}:
+ *   get:
+ *     summary: get site details by id
+ *     description: get site details by id.
+ *     tags:
+ *       - Guide
+ *     parameters:
+ *       - in: path
+ *         name: placeName
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: place name for find guide
+ * 
+ *     responses:
+ *       200:
+ *         description: Guide details retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Guide details retrieved successfully."
+ *
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 500
+ *                 errorType:
+ *                   type: string
+ *                   example: ServerError
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error."
  */
 
