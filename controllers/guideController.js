@@ -126,3 +126,49 @@ export const getGuideByPlace = async (req, res, next) => {
         next(error); // Pass error to the global error handler
     }
 };
+
+// get all guideby ID
+export const getGuideByID = async (req, res, next) => {
+    try {
+
+        const { id } = req.params
+
+        // check required fields
+
+        if (!id) {
+            return res.status(400).json({ message: 'Giude Id is required' })
+        }
+
+        const guides = await Guide.findById({ _id: id})
+        if (!guides) {
+            return res.status(404).json({ message: 'no guides  for this place' })
+        }
+
+        const guideInBase64 = {
+            _id: guides._id,
+            guideRegno: guides.guideRegno,
+            guideName: guides.guideName,
+            guideFee: guides.guideFee,
+            guideAdventureCategory: guides.guideAdventureCategory,
+            guideAdventurePlace: guides.guideAdventurePlace,
+            guideCategory: guides.guideCategory,
+            language: guides.language,
+            ratings: guides.ratings || 0,
+            guidePhoneNo: guides.guidePhoneNo,
+            guideEmail: guides.guideEmail,
+            guideAddress: guides.guideAddress,
+            guideValidity: guides.guideValidity,
+            guideImage: guides.guideImage && guides.guideImage.data ? `data:${guides.guideImage.contentType};base64,${guides.guideImage.data.toString('base64')}` : null
+
+        }
+
+
+        res.status(200).json(guideInBase64);
+
+        next()
+
+
+    } catch (error) {
+        next(error); // Pass error to the global error handler
+    }
+};
