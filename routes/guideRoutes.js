@@ -297,7 +297,7 @@ export default guiderouter;
  *     summary: get guide details by id
  *     description: get guide details by id.
  *     tags:
- *       - Adventure Places
+ *       - Guide
  *     parameters:
  *       - in: path
  *         name: id
