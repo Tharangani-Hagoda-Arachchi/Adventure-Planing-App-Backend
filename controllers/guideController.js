@@ -93,7 +93,7 @@ export const getGuideByPlace = async (req, res, next) => {
             return res.status(400).json({ message: 'adventure place  is required' })
         }
 
-        const guides = await Guide.find({ guideAdventurePlace: {$regex: new RegExp(`$^{placeName}$`, 'i')} })
+        const guides = await Guide.find({ guideAdventurePlace: {$regex: new RegExp(`^${placeName}$`, 'i')} })
         if (!guides) {
             return res.status(404).json({ message: 'no guides  for this place' })
         }
