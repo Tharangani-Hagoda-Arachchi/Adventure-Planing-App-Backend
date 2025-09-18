@@ -64,6 +64,9 @@ export default authrouter;
  *                 message:
  *                   type: string
  *                   example: "User registered successfully."
+ *                 accessToken
+ *                   type: string
+ *                   example: "U9gutbnmf."
  *       400:
  *         description: Validation error.
  *         content:
