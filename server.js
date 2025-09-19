@@ -11,6 +11,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
+import packagerouter from "./routes/packageRoute.js";
 
 
 
@@ -38,6 +39,7 @@ app.use('/api/auths',authrouter)
 app.use('/api',guiderouter)
 app.use('/api',adventurerouter)
 app.use('/api',siterouter)
+app.use('/api',packagerouter)
 
 
 
