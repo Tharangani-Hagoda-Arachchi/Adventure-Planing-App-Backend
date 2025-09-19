@@ -302,7 +302,7 @@ export default packagerouter;
  *                   example: ServerError
  *                 message:
  *                   type: string
- *                   example: "Internal server error."
+ *                   example: "Internal server error.""
  */
 
 
