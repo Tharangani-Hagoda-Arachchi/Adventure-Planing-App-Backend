@@ -135,6 +135,43 @@ export const getPackageById = async (req, res, next) => {
     }
 };
 
+// get  package by  id
+export const getaAllpackages = async (req, res, next) => {
+    try {
+
+
+        const packages = await Package.findById()
+
+        if (!packages) {
+            return res.status(404).json({ message: 'no adventure site for this ID' })
+        }
+
+        const onesiteInBase64 = {
+            _id: packages._id,
+            name: packages.name,
+            price: packages.price,
+            time: packages.time,
+            place: packages.place,
+            mealAvailability: packages.mealAvailability,
+            description: packages.description,
+            ratings: packages.ratings,
+            categoryId: packages.categoryId,
+            packageImage: packages.packageImage && packages.packageImage.data ? `data:${packages.packageImage.contentType};base64,${packages.packageImage.data.toString('base64')}` : null
+
+        };
+
+
+        res.status(200).json(onesiteInBase64);
+
+        next()
+
+
+    } catch (error) {
+        next(error); // Pass error to the global error handler
+    }
+};
+
+
 
 
 

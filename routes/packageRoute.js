@@ -256,6 +256,56 @@ export default packagerouter;
  */
 
 
+/**
+ * @swagger
+ * /api/packages/:
+ *   get:
+ *     summary: get packages details 
+ *     description: get site details
+ *     tags:
+ *       - Adventure Places
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID of place which want to get infoD 
+ * 
+ *     responses:
+ *       200:
+ *         description: site details retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "site details retrieved successfully."
+ *
+ *       500:
+ *         description: Internal server error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 500
+ *                 errorType:
+ *                   type: string
+ *                   example: ServerError
+ *                 message:
+ *                   type: string
+ *                   example: "Internal server error."
+ */
+
+
 
 
 
