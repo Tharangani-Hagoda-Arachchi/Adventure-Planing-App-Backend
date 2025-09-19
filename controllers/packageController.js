@@ -44,7 +44,7 @@ export const addpPackage = async (req, res, next) => {
 
 
 // get all sites by category id
-export const getPkCategoryPById = async (req, res, next) => {
+export const getPKid = async (req, res, next) => {
     try {
 
         const { categoryId } = req.params

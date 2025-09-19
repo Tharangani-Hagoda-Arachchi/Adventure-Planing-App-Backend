@@ -1,13 +1,13 @@
 import express from 'express';
 import multer from 'multer';
-import { addpPackage, getPkCategoryById } from '../controllers/packageController.js';
+import { addpPackage, getPKid } from '../controllers/packageController.js';
 const upload = multer({ storage: multer.memoryStorage() });
 //import upload from '../upload.js';
 const packagerouter  = express.Router();
 
 
 packagerouter.post('/packages',upload.single('packageImage'),addpPackage);
-packagerouter.get('/packages/:categoryId',getPkCategoryById)
+packagerouter.get('/packages/:categoryId',getPKid)
 
 
 
