@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { addpPackage, getPackageById, getPKid } from '../controllers/packageController.js';
+import { addpPackage, getaAllpackages, getPackageById, getPKid } from '../controllers/packageController.js';
 const upload = multer({ storage: multer.memoryStorage() });
 //import upload from '../upload.js';
 const packagerouter  = express.Router();
@@ -9,6 +9,7 @@ const packagerouter  = express.Router();
 packagerouter.post('/packages',upload.single('packageImage'),addpPackage);
 packagerouter.get('/packages/:categoryId',getPKid)
 packagerouter.get('/packages/details/:id',getPackageById)
+packagerouter.get('/packages',getaAllpackages)
 
 
 
@@ -302,7 +303,7 @@ export default packagerouter;
  *                   example: ServerError
  *                 message:
  *                   type: string
- *                   example: "Internal server error.""
+ *                   example: "Internal server error."
  */
 
 
