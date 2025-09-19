@@ -44,7 +44,7 @@ export const addpPackage = async (req, res, next) => {
 
 
 // get all sites by category id
-export const getPkCategoryById = async (req, res, next) => {
+export const getPkCategoryPById = async (req, res, next) => {
     try {
 
         const { categoryId } = req.params
@@ -63,7 +63,7 @@ export const getPkCategoryById = async (req, res, next) => {
 
         const packages = await Package.find({ categoryId })
 
-        if (!sites) {
+        if (!packages) {
             return res.status(404).json({ message: 'no adventure site for this category' })
         }
 

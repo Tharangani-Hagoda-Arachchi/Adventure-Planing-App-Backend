@@ -155,7 +155,7 @@ export default packagerouter;
 
 /**
  * @swagger
- * /api/places/{categoryId}:
+ * /api/packages/{categoryId}:
  *   get:
  *     summary: get site details by category id
  *     description: get site details by category id.
