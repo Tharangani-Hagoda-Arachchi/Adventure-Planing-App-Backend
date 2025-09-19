@@ -259,23 +259,15 @@ export default packagerouter;
 
 /**
  * @swagger
- * /api/packages/:
+ * /api/packages:
  *   get:
- *     summary: get packages details 
- *     description: get site details
+ *     summary: Retrieve all adventures
+ *     description: Fetches a list of all Adventures from the system.
  *     tags:
- *       - Adventure Places
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *         description: ID of place which want to get infoD 
- * 
+ *       - Packages
  *     responses:
  *       200:
- *         description: site details retrieved successfully.
+ *         description: Adventure retrieved successfully.
  *         content:
  *           application/json:
  *             schema:
@@ -283,10 +275,19 @@ export default packagerouter;
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "site details retrieved successfully."
- *
+ *                   example: "Adventure retrieved successfully."
  *       500:
- *         description: Internal server error.
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Server Error
+ *       401:
+ *         description: Authentication error.
  *         content:
  *           application/json:
  *             schema:
@@ -297,17 +298,31 @@ export default packagerouter;
  *                   example: false
  *                 statusCode:
  *                   type: integer
- *                   example: 500
+ *                   example: 401
  *                 errorType:
  *                   type: string
- *                   example: ServerError
+ *                   example: AuthenticationError
  *                 message:
  *                   type: string
- *                   example: "Internal server error."
+ *                   example: "token invalid."
+ *       403:
+ *         description: Authorization error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 403
+ *                 errorType:
+ *                   type: string
+ *                   example: AuthorizationError
+ *                 message:
+ *                   type: string
+ *                   example: "Access Denied."
  */
-
-
-
-
-
 
