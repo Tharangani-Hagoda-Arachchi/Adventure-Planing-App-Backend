@@ -55,4 +55,4 @@ const PackageSchema = new mongoose.Schema({
 // Create the Guide model
 const Package = mongoose.model('Package',PackageSchema);
 
-export default Site;
+export default Package;
