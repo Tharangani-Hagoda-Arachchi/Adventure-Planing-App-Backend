@@ -55,7 +55,7 @@ export const getPackageByCatid = async (req, res, next) => {
             return res.status(400).json({ message: 'adventure category is required' })
         }
 
-        const validCategory = await Adventure.find({ _id : categoryId })
+        const validCategory = await Adventure.findById({ _id : categoryId })
 
         if (!validCategory) {
             return res.status(404).json({ message: 'invalid adventure category' })
@@ -146,19 +146,19 @@ export const getaAllpackages = async (req, res, next) => {
             return res.status(404).json({ message: 'no adventure packages' })
         }
 
-        const allPackagesInBase64 = {
-            _id: packages._id,
-            name: packages.name,
-            price: packages.price,
-            time: packages.time,
-            place: packages.place,
-            mealAvailability: packages.mealAvailability,
-            description: packages.description,
-            ratings: packages.ratings,
-            categoryId: packages.categoryId,
-            packageImage: packages.packageImage && packages.packageImage.data ? `data:${packages.packageImage.contentType};base64,${packages.packageImage.data.toString('base64')}` : null
+        const allPackagesInBase64 = packages.map(p => ({
+            _id: p._id,
+            name: p.name,
+            price: p.price,
+            time: p.time,
+            place: p.place,
+            mealAvailability: p.mealAvailability,
+            description: p.description,
+            ratings: p.ratings,
+            categoryId: p.categoryId,
+            packageImage: p.packageImage && p.packageImage.data ? `data:${p.packageImage.contentType};base64,${p.packageImage.data.toString('base64')}` : null
 
-        };
+        }));
 
 
         res.status(200).json(allPackagesInBase64);
