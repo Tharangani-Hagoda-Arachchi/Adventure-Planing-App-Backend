@@ -2,14 +2,15 @@ import express from 'express';
 import multer from 'multer';
 import {addSite,getCategoryById, getPlaceById} from '../controllers/adventureSiteController.js';
 import validateSite from '../validators/adventureSiteValidator.js';
+import { authenticate } from '../middlewares/authMiddleware.js';
 const upload = multer({ storage: multer.memoryStorage() });
 //import upload from '../upload.js';
 const siterouter  = express.Router();
 
 
 siterouter.post('/places',upload.single('siteImage'),validateSite,addSite);
-siterouter.get('/places/:categoryId',getCategoryById)
-siterouter.get('/places/details/:id',getPlaceById)
+siterouter.get('/places/:categoryId',authenticate,getCategoryById)
+siterouter.get('/places/details/:id',authenticate,getPlaceById)
 
 
 
@@ -17,7 +18,6 @@ export default siterouter;
 
 
 // add site
-
 
 
 /**
@@ -54,7 +54,7 @@ export default siterouter;
  *                 example: 112.8965
  *               openTime:
  *                 type: string
- *                 example: 6:30 AM to 11:00 PM
+ *                 example: 6:30 AM to 11:00 PM
  *               description:
  *                 type: string
  *                 example: Arugam Bay, located on the southeast coast of Sri Lanka, is a world-renowned surfing destination known for its laid-back vibe, warm waters, and consistent right-hand point breaks. Ideal for both beginners and experienced surfers, it offers waves from May to October, with Main Point, Peanut Farm, and Whiskey Point being popular surf spots. The beach also boasts golden sands, palm-fringed shores, and a vibrant local surf culture.
@@ -70,7 +70,7 @@ export default siterouter;
  *                 description: Upload image file
  *     responses:
  *       201:
- *         description: adventure area add successfully.
+ *         description: Adventure area added successfully.
  *         content:
  *           application/json:
  *             schema:
@@ -145,30 +145,26 @@ export default siterouter;
  *                   example: "Internal server error."
  */
 
-
-
-
-//get all site by category id
-
 /**
  * @swagger
  * /api/places/{categoryId}:
  *   get:
- *     summary: get site details by category id
- *     description: get site details by category id.
+ *     summary: Get site details by category id
+ *     description: Get site details by category id.
  *     tags:
  *       - Adventure Places
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: categoryId
  *         required: true
  *         schema:
  *           type: string
- *         description: cat Iof place which want to get infoD 
- * 
+ *         description: Category ID of the place to fetch info
  *     responses:
  *       200:
- *         description: site details retrieved successfully.
+ *         description: Site details retrieved successfully.
  *         content:
  *           application/json:
  *             schema:
@@ -176,8 +172,7 @@ export default siterouter;
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "site details retrieved successfully."
- *
+ *                   example: "Site details retrieved successfully."
  *       500:
  *         description: Internal server error.
  *         content:
@@ -199,28 +194,26 @@ export default siterouter;
  *                   example: "Internal server error."
  */
 
-
-//get all site by id
-
 /**
  * @swagger
  * /api/places/details/{id}:
  *   get:
- *     summary: get site details by id
- *     description: get site details by id.
+ *     summary: Get site details by id
+ *     description: Get site details by id.
  *     tags:
  *       - Adventure Places
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID of place which want to get infoD 
- * 
+ *         description: ID of the place to fetch info
  *     responses:
  *       200:
- *         description: site details retrieved successfully.
+ *         description: Site details retrieved successfully.
  *         content:
  *           application/json:
  *             schema:
@@ -228,8 +221,7 @@ export default siterouter;
  *               properties:
  *                 message:
  *                   type: string
- *                   example: "site details retrieved successfully."
- *
+ *                   example: "Site details retrieved successfully."
  *       500:
  *         description: Internal server error.
  *         content:
@@ -250,5 +242,3 @@ export default siterouter;
  *                   type: string
  *                   example: "Internal server error."
  */
-
-

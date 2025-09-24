@@ -43,8 +43,8 @@ export const addpPackage = async (req, res, next) => {
 };
 
 
-// get all sites by category id
-export const getPKid = async (req, res, next) => {
+// get all packages by category id
+export const getPackageByCatid = async (req, res, next) => {
     try {
 
         const { categoryId } = req.params
@@ -63,8 +63,8 @@ export const getPKid = async (req, res, next) => {
 
         const packages = await Package.find({ categoryId })
 
-        if (!packages) {
-            return res.status(404).json({ message: 'no adventure site for this category' })
+        if (!packages || packages.length === 0) {
+            return res.status(404).json({ message: 'no adventure packages for this category' })
         }
 
         const packageInBase64 = packages.map(s => ({
@@ -107,10 +107,10 @@ export const getPackageById = async (req, res, next) => {
         const packages = await Package.findById({_id: id })
 
         if (!packages) {
-            return res.status(404).json({ message: 'no adventure site for this ID' })
+            return res.status(404).json({ message: 'no adventure packages for this ID' })
         }
 
-        const onesiteInBase64 = {
+        const onepackageInBase64 = {
             _id: packages._id,
             name: packages.name,
             price: packages.price,
@@ -125,7 +125,7 @@ export const getPackageById = async (req, res, next) => {
         };
 
 
-        res.status(200).json(onesiteInBase64);
+        res.status(200).json(onepackageInBase64);
 
         next()
 
@@ -135,18 +135,18 @@ export const getPackageById = async (req, res, next) => {
     }
 };
 
-// get  package by  id
+// get  packages
 export const getaAllpackages = async (req, res, next) => {
     try {
 
 
-        const packages = await Package.findById()
+        const packages = await Package.find()
 
         if (!packages) {
-            return res.status(404).json({ message: 'no adventure site for this ID' })
+            return res.status(404).json({ message: 'no adventure packages' })
         }
 
-        const onesiteInBase64 = {
+        const allPackagesInBase64 = {
             _id: packages._id,
             name: packages.name,
             price: packages.price,
@@ -161,7 +161,7 @@ export const getaAllpackages = async (req, res, next) => {
         };
 
 
-        res.status(200).json(onesiteInBase64);
+        res.status(200).json(allPackagesInBase64);
 
         next()
 

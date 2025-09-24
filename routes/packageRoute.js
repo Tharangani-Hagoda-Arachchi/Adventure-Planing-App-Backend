@@ -1,15 +1,16 @@
 import express from 'express';
 import multer from 'multer';
-import { addpPackage, getaAllpackages, getPackageById, getPKid } from '../controllers/packageController.js';
+import { addpPackage, getaAllpackages, getPackageByCatid, getPackageById} from '../controllers/packageController.js';
+import { authenticate } from '../middlewares/authMiddleware.js';
 const upload = multer({ storage: multer.memoryStorage() });
 //import upload from '../upload.js';
 const packagerouter  = express.Router();
 
 
 packagerouter.post('/packages',upload.single('packageImage'),addpPackage);
-packagerouter.get('/packages/:categoryId',getPKid)
-packagerouter.get('/packages/details/:id',getPackageById)
-packagerouter.get('/packages',getaAllpackages)
+packagerouter.get('/packages/:categoryId',authenticate,getPackageByCatid)
+packagerouter.get('/packages/details/:id',authenticate,getPackageById)
+packagerouter.get('/packages',authenticate,getaAllpackages)
 
 
 
@@ -163,6 +164,8 @@ export default packagerouter;
  *     description: get site details by category id.
  *     tags:
  *       - Packages
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: categoryId
@@ -214,7 +217,9 @@ export default packagerouter;
  *     summary: get packages details by id
  *     description: get site details by id.
  *     tags:
- *       - Adventure Places
+ *       - Packages
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -265,6 +270,8 @@ export default packagerouter;
  *     description: Fetches a list of all Adventures from the system.
  *     tags:
  *       - Packages
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Adventure retrieved successfully.

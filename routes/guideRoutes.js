@@ -2,15 +2,16 @@ import express from 'express';
 import multer from 'multer';
 import {addGuide,getGuide, getGuideByID, getGuideByPlace} from '../controllers/guideController.js';
 import validateGuide from '../validators/guideValidator.js';
+import { authenticate } from '../middlewares/authMiddleware.js';
 const upload = multer({ storage: multer.memoryStorage() });
 //import upload from '../upload.js';
 const guiderouter  = express.Router();
 
 
 guiderouter.post('/guides',upload.single('guideImage'),validateGuide,addGuide);
-guiderouter.get('/guides',getGuide)
-guiderouter.get('/guides/:placeName',getGuideByPlace)
-guiderouter.get('/guides/details/:id',getGuideByID)
+guiderouter.get('/guides',authenticate,getGuide)
+guiderouter.get('/guides/:placeName',authenticate,getGuideByPlace)
+guiderouter.get('/guides/details/:id',authenticate,getGuideByID)
 
 
 
@@ -179,6 +180,8 @@ export default guiderouter;
  *     description: Fetches a list of all operator users from the system.
  *     tags:
  *       - Guide
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Operators retrieved successfully.
@@ -249,6 +252,8 @@ export default guiderouter;
  *     description: get site details by id.
  *     tags:
  *       - Guide
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: placeName
@@ -298,6 +303,8 @@ export default guiderouter;
  *     description: get guide details by id.
  *     tags:
  *       - Guide
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
