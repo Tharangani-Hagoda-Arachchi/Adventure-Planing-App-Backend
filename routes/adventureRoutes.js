@@ -2,12 +2,13 @@ import express from 'express';
 import multer from 'multer';
 import {addAdventure,getAdventure} from '../controllers/adventureController.js';
 import validateAdventure from '../validators/adventureValidator.js';
+import { authenticate } from '../middlewares/authMiddleware.js';
 
 const adventurerouter  = express.Router();
 
 
 adventurerouter.post('/adventures',validateAdventure,addAdventure);
-adventurerouter.get('/adventures',getAdventure)
+adventurerouter.get('/adventures',authenticate,getAdventure)
 
 
 
@@ -127,6 +128,8 @@ export default adventurerouter;
  *     description: Fetches a list of all Adventures from the system.
  *     tags:
  *       - Adventure
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Adventure retrieved successfully.

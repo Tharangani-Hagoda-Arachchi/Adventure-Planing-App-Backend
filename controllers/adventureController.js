@@ -34,7 +34,7 @@ export const getAdventure = async (req, res, next) => {
         // Search for all adventures
         const adventure = await Adventure.find();
 
-        if (!adventure) {
+        if (!adventure || adventure.length === 0) {
             return res.status(404).json({ message: `No adventure found'.` });
         }
 

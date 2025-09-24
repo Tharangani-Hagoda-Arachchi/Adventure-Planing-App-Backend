@@ -40,10 +40,10 @@ export const addUser = async (req, res, next) => {
         const accessToken = createAccessToken(payload, JWT_ACCESS_SECRET, ACCESS_TOKEN_EXPIRES_IN || '15m')
         const refreshToken = createRefreshToken(payload, JWT_REFRESH_SECRET, REFRESH_TOKEN_EXPIRES_IN || '7d')
 
-        newUser.token.push(accessToken)
+        //newUser.token.push(accessToken)
         await newUser.save()
 
-        res.status(201).json({ message: 'New user Added successful' ,accessToken });
+        res.status(201).json({ message: 'New user Added successful', accessToken });
 
         next()
 
@@ -70,17 +70,16 @@ export const userLogin = async (req, res, next) => {
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password)
-
-        const payload = { id: user._id, email: user.email }
-        const accessToken = createAccessToken(payload, JWT_ACCESS_SECRET, ACCESS_TOKEN_EXPIRES_IN || '15m')
-        const refreshToken = createRefreshToken(payload, JWT_REFRESH_SECRET, REFRESH_TOKEN_EXPIRES_IN || '7d')
-
         if (!passwordMatch) {
             throw new AppError('Inavalid Email or Password', 401, 'AuthenticationError');
         }
 
-        user.token.push(accessToken)
-        await user.save()
+        const payload = { id: user._id, email: user.email }
+        const accessToken = createAccessToken(payload, JWT_ACCESS_SECRET, ACCESS_TOKEN_EXPIRES_IN || '15m')
+        //const refreshToken = createRefreshToken(payload, JWT_REFRESH_SECRET, REFRESH_TOKEN_EXPIRES_IN || '7d')
+
+        //user.token.push(accessToken)
+        //await user.save()
 
 
         res.status(200).json({
