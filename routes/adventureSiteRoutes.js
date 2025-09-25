@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import {addSite,getCategoryById, getPlaceById} from '../controllers/adventureSiteController.js';
+import {addSite,getAdventureSites,getCategoryById, getPlaceById} from '../controllers/adventureSiteController.js';
 import validateSite from '../validators/adventureSiteValidator.js';
 import { authenticate } from '../middlewares/authMiddleware.js';
 const upload = multer({ storage: multer.memoryStorage() });
@@ -9,6 +9,7 @@ const siterouter  = express.Router();
 
 
 siterouter.post('/places',upload.single('siteImage'),validateSite,addSite);
+siterouter.get('/places',authenticate,getAdventureSites)
 siterouter.get('/places/:categoryId',authenticate,getCategoryById)
 siterouter.get('/places/details/:id',authenticate,getPlaceById)
 
@@ -242,3 +243,79 @@ export default siterouter;
  *                   type: string
  *                   example: "Internal server error."
  */
+
+
+
+//get all adventure places
+/**
+ * @swagger
+ * /api/places:
+ *   get:
+ *     summary: Retrieve all adventures
+ *     description: Fetches a list of all Adventures from the system.
+ *     tags:
+ *       - Adventure Places
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Adventure retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Adventure retrieved successfully."
+ *       500:
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Server Error
+ *       401:
+ *         description: Authentication error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 401
+ *                 errorType:
+ *                   type: string
+ *                   example: AuthenticationError
+ *                 message:
+ *                   type: string
+ *                   example: "token invalid."
+ *       403:
+ *         description: Authorization error.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 403
+ *                 errorType:
+ *                   type: string
+ *                   example: AuthorizationError
+ *                 message:
+ *                   type: string
+ *                   example: "Access Denied."
+ */
+
+

@@ -131,3 +131,35 @@ export const getPlaceById = async (req, res, next) => {
 };
 
 
+// get all adventures
+export const getAdventureSites = async (req, res, next) => {
+    try {
+
+        // Search for all adventures
+        const adventure = await Site.find();
+
+        if (!adventure || adventure.length === 0) {
+            return res.status(404).json({ message: `No adventure found'.` });
+        }
+        const siteInBase64 = adventure.map(s => ({
+            _id: s._id,
+            name: s.name,
+            latitude: s.latitude,
+            longitude: s.longitude,
+            openTime: s.openTime,
+            description: s.description,
+            ratings: s.ratings,
+            siteImage: s.siteImage && s.siteImage.data ? `data:${s.siteImage.contentType};base64,${s.siteImage.data.toString('base64')}` : null
+
+        }));
+
+        res.status(200).json(siteInBase64);
+     
+        next()
+
+    } catch (error) {
+        next(error); // Pass error to the global error handler
+    }
+};
+
+
