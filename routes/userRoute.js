@@ -1,6 +1,6 @@
 import express from 'express';
 import { authenticate } from '../middlewares/authMiddleware.js';
-import { getUserFromToken, updateUser } from '../controllers/userController.js';
+import { changePassword, getUserFromToken, updateUser } from '../controllers/userController.js';
 
 const userrouter  = express.Router();
 
@@ -8,6 +8,8 @@ const userrouter  = express.Router();
 userrouter.get('/users',authenticate,getUserFromToken);
 
 userrouter.put("/users/:id",authenticate,updateUser);
+
+userrouter.put("/users/changepassword/:id",authenticate,changePassword);
 
 
 export default userrouter;
@@ -145,5 +147,106 @@ export default userrouter;
  *       500:
  *         description: Server error
  */
+
+/**
+ * @swagger
+ * /api/users/changepassword/{id}:
+ *   put:
+ *     summary: Change user password
+ *     description: Update a user's password by their ID. Requires authentication.
+ *     tags:
+ *       - Users
+ *     security:
+ *       - bearerAuth: []  
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID whose password should be updated
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - password
+ *             properties:
+ *               password:
+ *                 type: string
+ *                 example: "MyNewStrongPassword123"
+ *     responses:
+ *       200:
+ *         description: Password updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   example: "651234abcd5678ef9012gh34"
+ *                 email:
+ *                   type: string
+ *                   example: "johndoe@example.com"
+ *                 message:
+ *                   type: string
+ *                   example: "Password updated successfully."
+ *       400:
+ *         description: Invalid request (e.g., missing or weak password)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Password must be at least 8 characters."
+ *       401:
+ *         description: Unauthorized (missing or invalid token)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 401
+ *                 errorType:
+ *                   type: string
+ *                   example: AuthenticationError
+ *                 message:
+ *                   type: string
+ *                   example: "token invalid."
+ *       403:
+ *         description: Authorization error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 statusCode:
+ *                   type: integer
+ *                   example: 403
+ *                 errorType:
+ *                   type: string
+ *                   example: AuthorizationError
+ *                 message:
+ *                   type: string
+ *                   example: "Access Denied."
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
+
 
 
