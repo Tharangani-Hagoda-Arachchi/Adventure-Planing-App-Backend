@@ -181,12 +181,11 @@ export const changePassword = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({
+    res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
       phone: user.phone,
-      message: "Password updated successfully"
     });
 
   } catch (error) {
