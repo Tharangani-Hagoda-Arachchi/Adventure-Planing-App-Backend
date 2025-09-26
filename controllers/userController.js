@@ -98,6 +98,38 @@ export const userLogin = async (req, res, next) => {
 }
 
 
+// fetch user form id get by token
+export const getUserFromToken = async (req, res, next) => {
+  try {
+
+    if (!req.user || !req.user.id) {
+      throw new AppError("User ID not found in token", 401, "AuthenticationError");
+    }
+
+
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      throw new AppError("User not found", 404, "NotFoundError");
+    }
+
+
+    const userresult = {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+    };
+
+    res.status(200).json(userresult);
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
 
 
 

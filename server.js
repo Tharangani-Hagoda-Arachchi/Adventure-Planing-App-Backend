@@ -13,6 +13,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import packagerouter from "./routes/packageRoute.js";
 import searchrouter from "./routes/searchRoute.js";
+import userrouter from "./routes/userRoute.js";
 
 
 
@@ -42,6 +43,7 @@ app.use('/api',adventurerouter)
 app.use('/api',siterouter)
 app.use('/api',packagerouter)
 app.use('/api/search',searchrouter)
+app.use('/api',userrouter)
 
 
 
