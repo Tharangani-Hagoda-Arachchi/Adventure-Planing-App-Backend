@@ -170,7 +170,7 @@ export const changePassword = async (req, res) => {
       return res.status(400).json({ message: "Password must be at least 6 characters" });
     }
 
-    const user = await User.findById({_id : id});
+    const user = await User.findById({_id: id});
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -185,6 +185,7 @@ export const changePassword = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      phone: user.phone,
       message: "Password updated successfully"
     });
 
