@@ -1,11 +1,13 @@
 import express from 'express';
 import { authenticate } from '../middlewares/authMiddleware.js';
-import { getUserFromToken } from '../controllers/userController.js';
+import { getUserFromToken, updateUser } from '../controllers/userController.js';
 
 const userrouter  = express.Router();
 
 
 userrouter.get('/users',authenticate,getUserFromToken);
+
+userrouter.put("/users/:id",authenticate,updateUser);
 
 
 export default userrouter;
@@ -84,4 +86,64 @@ export default userrouter;
  *                   type: string
  *                   example: "Access Denied."
  */
+
+
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   put:
+ *     summary: Update user profile
+ *     description: Update a user's profile details (name, phone). Requires authentication.
+ *     tags:
+ *       - Users
+ *     security:
+ *       - bearerAuth: []  
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "John Doe"
+ *               phone:
+ *                 type: string
+ *                 example: "+1 555 123 4567"
+ *     responses:
+ *       200:
+ *         description: User updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   example: "651234abcd5678ef9012gh34"
+ *                 name:
+ *                   type: string
+ *                   example: "John Doe"
+ *                 email:
+ *                   type: string
+ *                   example: "johndoe@example.com"
+ *                 phone:
+ *                   type: string
+ *                   example: "+1 555 123 4567"
+ *       401:
+ *         description: Unauthorized (missing or invalid token)
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Server error
+ */
+
 

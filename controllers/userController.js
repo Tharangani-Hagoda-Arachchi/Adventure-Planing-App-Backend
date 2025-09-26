@@ -129,6 +129,39 @@ export const getUserFromToken = async (req, res, next) => {
 };
 
 
+export const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, phone } = req.body;
+
+    // Find user
+    const user = await User.findById(_id = id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update fields
+    if (name) user.name = name;
+    if (phone) user.phone = phone;
+
+    // Save updated user
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      phone: updatedUser.phone,
+    });
+  } catch (error) {
+    console.error("Update user error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
 
 
 
