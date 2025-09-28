@@ -11,7 +11,7 @@ userrouter.put("/users/:id",authenticate,updateUser);
 
 userrouter.put("/users/changepassword/:id",authenticate,changePassword);
 
-userrouter.put("/users/forgot-password",sendOtp);
+userrouter.post("/users/forgot-password",sendOtp);
 
 userrouter.put("/users/reset-password",resetPassword);
 
@@ -256,7 +256,7 @@ export default userrouter;
 /**
  * @swagger
  * /api/users/forgot-password:
- *   put:
+ *   post:
  *     summary: Send OTP for password reset
  *     description: Sends a 4-digit OTP code to the user's email address for password reset. Generates a random 4-digit OTP, sets expiration time to 5 minutes, removes any existing OTPs for the email, and sends OTP via Gmail SMTP.
  *     tags:
