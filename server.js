@@ -14,6 +14,7 @@ import cookieParser from "cookie-parser";
 import packagerouter from "./routes/packageRoute.js";
 import searchrouter from "./routes/searchRoute.js";
 import userrouter from "./routes/userRoute.js";
+import bookingrouter from "./routes/bookinRoutes.js";
 
 
 
@@ -44,6 +45,7 @@ app.use('/api',siterouter)
 app.use('/api',packagerouter)
 app.use('/api/search',searchrouter)
 app.use('/api',userrouter)
+app.use('/api',bookingrouter)
 
 
 
