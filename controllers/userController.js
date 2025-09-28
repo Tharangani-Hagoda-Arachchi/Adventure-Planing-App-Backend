@@ -2,7 +2,8 @@ import User from "../models/user.js";
 import { AppError } from '../utils/errorHandler.js';
 import bcrypt from 'bcrypt';
 import { createAccessToken, createRefreshToken } from "../utils/token.js";
-
+import nodemailer from 'nodemailer'
+import Otp from "../models/otp.js";
 const {
     JWT_ACCESS_SECRET,
     JWT_REFRESH_SECRET,
@@ -10,6 +11,14 @@ const {
     REFRESH_TOKEN_EXPIRES_IN,
     NODE_ENV
 } = process.env;
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
+  }
+});
 
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Basic email regex
@@ -194,6 +203,70 @@ export const changePassword = async (req, res) => {
   }
 };
 
+
+//send otp
+export const sendOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    //const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpCode = Math.floor(1000 + Math.random() * 9000).toString(); // 4 digits
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000);
+
+    await Otp.deleteMany({ email }); // Remove old OTPs
+    await Otp.create({ email, otp: otpCode, expiresAt });
+
+    // Gmail transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+await transporter.sendMail({
+      from: `"TravelMate Adventure Planner App" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: "Password Reset OTP",
+      text: `Your OTP code is ${otpCode}. It will expire in 5 minutes.`,
+    });
+    
+    res.json({ message: "OTP sent to email" });
+  } 
+  catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+
+// Verify OTP and reset password
+export const resetPassword = async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+    const otpRecord = await Otp.findOne({ email, otp });
+
+    if (!otpRecord) return res.status(400).json({ message: "Invalid OTP" });
+    if (otpRecord.expiresAt < new Date())
+      return res.status(400).json({ message: "OTP expired" });
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    await user.save();
+
+    await Otp.deleteMany({ email });
+
+    res.json({ message: "Password reset successful" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 
 

@@ -1,6 +1,6 @@
 import express from 'express';
 import { authenticate } from '../middlewares/authMiddleware.js';
-import { changePassword, getUserFromToken, updateUser } from '../controllers/userController.js';
+import { changePassword, getUserFromToken, resetPassword, sendOtp, updateUser } from '../controllers/userController.js';
 
 const userrouter  = express.Router();
 
@@ -10,6 +10,10 @@ userrouter.get('/users',authenticate,getUserFromToken);
 userrouter.put("/users/:id",authenticate,updateUser);
 
 userrouter.put("/users/changepassword/:id",authenticate,changePassword);
+
+userrouter.put("/users/forgot-password",sendOtp);
+
+userrouter.put("/users/reset-password",resetPassword);
 
 
 export default userrouter;
@@ -246,6 +250,154 @@ export default userrouter;
  *         description: User not found
  *       500:
  *         description: Internal server error
+ */
+
+
+/**
+ * @swagger
+ * /api/users/forgot-password:
+ *   put:
+ *     summary: Send OTP for password reset
+ *     description: Sends a 4-digit OTP code to the user's email address for password reset. Generates a random 4-digit OTP, sets expiration time to 5 minutes, removes any existing OTPs for the email, and sends OTP via Gmail SMTP.
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: User's email address
+ *                 example: "johndoe@example.com"
+ *     responses:
+ *       200:
+ *         description: OTP sent successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "OTP sent to email"
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User not found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Failed to send email"
+ * 
+ * 
+ * 
+ */
+
+
+/**
+ * @swagger
+ * /api/users/reset-password:
+ *   put:
+ *     summary: Reset password using OTP
+ *     description: Verifies the OTP and resets the user's password. Validates OTP code and expiration, hashes new password with bcrypt, updates user's password, and removes used OTP from database.
+ *     tags:
+ *       - Users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - otp
+ *               - newPassword
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: User's email address
+ *                 example: "johndoe@example.com"
+ *               otp:
+ *                 type: string
+ *                 pattern: '^[0-9]{4}$'
+ *                 description: 4-digit OTP code received via email
+ *                 example: "1234"
+ *                 minLength: 4
+ *                 maxLength: 4
+ *               newPassword:
+ *                 type: string
+ *                 description: New password for the user account
+ *                 minLength: 8
+ *                 example: "MyNewStrongPassword123"
+ *     responses:
+ *       200:
+ *         description: Password reset successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Password reset successful"
+ *       400:
+ *         description: Bad request - Invalid or expired OTP
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Invalid OTP"
+ *               examples:
+ *                 invalid_otp:
+ *                   summary: Invalid OTP provided
+ *                   value:
+ *                     message: "Invalid OTP"
+ *                 expired_otp:
+ *                   summary: OTP has expired
+ *                   value:
+ *                     message: "OTP expired"
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "User not found"
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Failed to reset password"
  */
 
 
