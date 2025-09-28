@@ -12,46 +12,45 @@ const bookingSchema = new mongoose.Schema({
     phone: { 
         type: String, 
         required: true
-     },
+    },
     address: { 
         type: String, 
         required: true
-     },
-
-    bookingTypeId: { 
-        type: String, 
-        required: true 
     },
-    packageId: { 
-        type: String
-     },
-    guideId: { 
-        type: String
-     },
-
     date: { 
         type: Date, 
         required: true
-     },
+    },
     travellers: { 
         type: Number, 
         required: true
-     },
-
+    },
+    bookingTypeId: { 
+        type: String, 
+        required: true
+    },
     pricePerPerson: { 
         type: Number, 
         required: true
-     },
+    },
     totalPrice: { 
         type: Number, 
-        required: true 
+        required: true
     },
-
+    guideId: { 
+        type: String, 
+        default: null
+    },
+    packageId: { 
+        type: String, 
+        default: null
+    },
     createdAt: { 
         type: Date, 
         default: Date.now
-     }
+    }
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);
+
 export default Booking;
